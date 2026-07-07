@@ -29,14 +29,13 @@ public sealed class VehicleSimulationService(
 {
     private readonly SimulatorOptions _options = options.Value;
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Execute de vehicle park simulator.
+    /// </summary>
+    /// <param name="stoppingToken"></param>
+    /// <returns></returns>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        await Task.Delay(
-            3000, 
-            stoppingToken
-        );
-
         Log.Information(
             "Simulador Estapar iniciando. API alvo: {ApiBaseUrl} | Hub: {HubBaseUrl}",
             _options.ApiBaseUrl,
