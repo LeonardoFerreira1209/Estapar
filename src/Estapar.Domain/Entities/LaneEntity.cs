@@ -81,7 +81,7 @@ public class LaneEntity : IEntityBase
     /// <remarks>
     /// Private constructor for ORM frameworks.
     /// </remarks>
-    private LaneEntity() { }
+    protected LaneEntity() { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LaneEntity"/> class with specified properties.

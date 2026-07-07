@@ -9,21 +9,18 @@ namespace Estapar.Infraestructure.Data.Repositories;
 /// Provides data access operations for <see cref="ParkEntity"/>, including loading associated lanes and garages.
 /// </summary>
 /// <param name="context">The EF Core database context.</param>
-public class ParkRepository(DbContext context)
+public class ParkRepository(EstaparContext context)
     : GenericEntityCoreRepository<ParkEntity>(context), IParkRepository
 {
     /// <inheritdoc />
     public async Task<ParkEntity> GetWithAssociationsAsync(
-        Guid id, 
+        Guid id,
         CancellationToken cancellationToken = default
-        )
-    {
-        return await context.Set<ParkEntity>()
+    ) => await context.Set<ParkEntity>()
             .Include(p => p.Lanes)
             .Include(p => p.Garages)
             .FirstOrDefaultAsync(
-                p => p.Id == id, 
+                p => p.Id == id,
                 cancellationToken
             );
-    }
 }

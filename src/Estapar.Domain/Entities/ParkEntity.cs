@@ -16,6 +16,7 @@ namespace Estapar.Domain.Entities;
 /// <list type="bullet">
 /// <item><description>One park contains many garages (one-to-many)</description></item>
 /// <item><description>One park contains many lanes (one-to-many)</description></item>
+/// <item><description>One park has one price table (one-to-one)</description></item>
 /// </list>
 /// </remarks>
 public class ParkEntity : IEntityBase
@@ -68,12 +69,20 @@ public class ParkEntity : IEntityBase
     public virtual ICollection<LaneEntity> Lanes { get; private set; } = [];
 
     /// <summary>
+    /// Gets the price table associated with this park.
+    /// </summary>
+    /// <value>
+    /// The <see cref="PriceTableEntity"/> that defines the billing rules for this parking facility.
+    /// </value>
+    public virtual PriceTableEntity PriceTable { get; private set; } = null!;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ParkEntity"/> class.
     /// </summary>
     /// <remarks>
     /// Private constructor for ORM frameworks.
     /// </remarks>
-    private ParkEntity() { }
+    protected ParkEntity() { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ParkEntity"/> class with the specified attributes.
@@ -148,5 +157,14 @@ public class ParkEntity : IEntityBase
     public void RemoveGarage(GarageEntity garage)
     {
         Garages.Remove(garage);
+    }
+
+    /// <summary>
+    /// Sets or replaces the price table for this park.
+    /// </summary>
+    /// <param name="priceTable">The price table to associate with this park.</param>
+    public void SetPriceTable(PriceTableEntity priceTable)
+    {
+        PriceTable = priceTable;
     }
 }

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json.Serialization;
 
 namespace Estapar.Domain.Dtos.Results;
@@ -46,12 +45,11 @@ public class ErrorResult : BaseApiResult
     /// Domain-specific error code that uniquely identifies the error type (e.g. "USER_001").
     /// </summary>
     [JsonPropertyName("errorCode")]
-    [JsonProperty("errorCode")]
     public string ErrorCode { get; }
 
     /// <summary>
     /// Dados a serem retornados na requisição.
     /// </summary>
-    [JsonProperty("data")]
+    [JsonPropertyName("data")]
     public object Data { get; }
 }

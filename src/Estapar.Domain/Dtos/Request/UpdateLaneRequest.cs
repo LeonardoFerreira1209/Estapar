@@ -10,7 +10,7 @@ public class UpdateLaneRequest
     /// <summary>
     /// Gets or sets the identifier of the lane (optional for new lanes).
     /// </summary>
-    public Guid? Id { get; set; }
+    public Guid Id { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the lane.

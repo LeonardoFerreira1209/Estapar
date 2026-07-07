@@ -4,7 +4,7 @@ using FluentValidation;
 namespace Estapar.Domain.Validators;
 
 /// <summary>
-/// Validator for UpdateParkRequest ensuring all required park fields and nested collections are valid.
+/// Validator for <see cref="UpdateParkRequest"/> ensuring all required park base fields are valid.
 /// </summary>
 public class UpdateParkRequestValidator : AbstractValidator<UpdateParkRequest>
 {
@@ -24,11 +24,5 @@ public class UpdateParkRequestValidator : AbstractValidator<UpdateParkRequest>
             .WithMessage("Park description is required.")
             .MaximumLength(1000)
             .WithMessage("Park description cannot exceed 1000 characters.");
-
-        RuleForEach(x => x.Lanes)
-            .SetValidator(new UpdateLaneRequestValidator());
-
-        RuleForEach(x => x.Garages)
-            .SetValidator(new UpdateGarageRequestValidator());
     }
 }

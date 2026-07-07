@@ -15,7 +15,7 @@ namespace Estapar.Infraestructure.Data.Repositories.Base;
 /// <typeparam name="T">The type of the entity managed by the repository. Must be a class that implements <see
 /// cref="IEntityPrimaryKey{Guid}"/>.</typeparam>
 /// <param name="context"></param>
-public class GenericEntityCoreRepository<T>(DbContext context)
+public class GenericEntityCoreRepository<T>(EstaparContext context)
     : IGenerictEntityCoreRepository<T> where T : class, IEntityPrimaryKey<Guid>
 {
     /// <summary>

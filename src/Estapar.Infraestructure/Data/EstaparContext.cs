@@ -31,6 +31,26 @@ public class EstaparContext(
     public DbSet<LaneEntity> Lanes { get; set; }
 
     /// <summary>
+    /// Gets or sets the DbSet for <see cref="PriceTableEntity"/>.
+    /// </summary>
+    public DbSet<PriceTableEntity> PriceTables { get; set; }
+
+    /// <summary>
+    /// Gets or sets the DbSet for <see cref="TrafficEntity"/>.
+    /// </summary>
+    public DbSet<TrafficEntity> Traffics { get; set; }
+
+    /// <summary>
+    /// Gets or sets the DbSet for <see cref="TransactionEntity"/>.
+    /// </summary>
+    public DbSet<TransactionEntity> Transactions { get; set; }
+
+    /// <summary>
+    /// Gets or sets the DbSet for <see cref="ParkedVehicleEntity"/>.
+    /// </summary>
+    public DbSet<ParkedVehicleEntity> ParkedVehicles { get; set; }
+
+    /// <summary>
     /// Configures the model for the database context.
     /// </summary>
     /// <remarks>This method is called during the model creation process and applies all entity configurations

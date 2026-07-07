@@ -26,17 +26,21 @@ public static class DataBaseExtensions
         this IServiceCollection services, 
         IConfiguration configurations
         )
-        => services.AddDbContext<EstaparContext>(options =>
         {
-            string connectionString = Environment.GetEnvironmentVariable("POSTGRES_DATABASE") ?? configurations
-                    .GetConnectionString("DataBase");
+            services.AddDbContext<EstaparContext>(options =>
+            {
+                string connectionString = Environment.GetEnvironmentVariable("POSTGRES_DATABASE") ?? configurations
+                        .GetConnectionString("DataBase");
 
-            options
-                .UseNpgsql(connectionString)
-                .UseLazyLoadingProxies()
-                .LogTo(Console.WriteLine, LogLevel.Warning);
+                options
+                    .UseNpgsql(connectionString)
+                    .UseLazyLoadingProxies()
+                    .LogTo(Console.WriteLine, LogLevel.Warning);
 
-        }, ServiceLifetime.Scoped);
+            }, ServiceLifetime.Scoped);
+
+            return services;
+        }
 
     /// <summary>
     /// Applies any pending database migrations to ensure the database schema is up to date.

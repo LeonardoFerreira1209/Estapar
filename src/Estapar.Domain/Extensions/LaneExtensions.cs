@@ -68,7 +68,7 @@ public static class LaneExtensions
     /// </summary>
     /// <param name="entity">The entity to update.</param>
     /// <param name="request">The request containing updated values.</param>
-    public static void UpdateFromRequest(
+    public static LaneEntity UpdateFromRequest(
         this LaneEntity entity,
         UpdateLaneRequest request
         )
@@ -78,5 +78,7 @@ public static class LaneExtensions
             request.LaneType,
             request.Status
         );
+
+        return entity;
     }
 }

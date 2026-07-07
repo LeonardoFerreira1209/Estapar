@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Net;
+﻿using System.Net;
+using System.Text.Json.Serialization;
 
 namespace Estapar.Domain.Dtos.Results;
 
@@ -36,6 +36,7 @@ public class ApiResult<T>
     /// <param name="statusCode"></param>
     /// <param name="data"></param>
     /// <param name="notifications"></param>
+    [JsonConstructor]
     public ApiResult(bool success, HttpStatusCode statusCode,
         T data = null, List<DataNotifications> notifications = null)
             : base(statusCode, success, notifications)
@@ -46,6 +47,6 @@ public class ApiResult<T>
     /// <summary>
     /// Dados a serem retornados na requisição.
     /// </summary>
-    [JsonProperty(nameof(Data))]
+    [JsonPropertyName(nameof(Data))]
     public T Data { get; }
 }

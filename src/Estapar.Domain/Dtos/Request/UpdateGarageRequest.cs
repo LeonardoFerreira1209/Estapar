@@ -8,7 +8,7 @@ public class UpdateGarageRequest
     /// <summary>
     /// Gets or sets the identifier of the garage (optional for new garages).
     /// </summary>
-    public Guid? Id { get; set; }
+    public Guid Id { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the garage.

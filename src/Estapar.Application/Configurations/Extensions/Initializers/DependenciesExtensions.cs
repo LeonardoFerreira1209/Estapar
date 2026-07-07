@@ -1,7 +1,10 @@
-﻿using Estapar.Application.Services;
+﻿using Estapar.Application.Hubs;
+using Estapar.Application.Services;
+using Estapar.Domain.Contracts.Hubs;
 using Estapar.Domain.Contracts.Repositories;
 using Estapar.Domain.Contracts.Repositories.Base;
 using Estapar.Domain.Contracts.Services;
+using Estapar.Infraestructure.Background;
 using Estapar.Infraestructure.Data.Repositories;
 using Estapar.Infraestructure.Data.Repositories.Base;
 using Microsoft.Extensions.Configuration;
@@ -36,8 +39,17 @@ public static class DependenciesExtensions
         services
             // Others
             .AddSingleton(serviceProvider => configurations)
+            // Lane channel registry (singleton — shared across all hosted services and controllers)
+            .AddSingleton<ILaneChannelRegistry, LaneChannelRegistry>()
+            // Hosted services: initializer must be registered BEFORE the background processor
+            .AddHostedService<LaneListenerInitializerService>()
+            .AddHostedService<LaneListenerBackgroundService>()
             // Services
             .AddScoped<IParkService, ParkService>()
+            .AddScoped<ILaneService, LaneService>()
+            .AddScoped<IGarageService, GarageService>()
+            .AddScoped<ILaneHubService, LaneHubService>()
+            .AddScoped<IWebhookService, WebhookService>()
             // Unit of Work
             .AddScoped<IUnitOfWork, UnitOfWork>()
             // Generic repositories (fallback for unregistered entities)
@@ -46,45 +58,11 @@ public static class DependenciesExtensions
             // Park-specific repositories
             .AddScoped<IParkRepository, ParkRepository>()
             .AddScoped<ILaneRepository, LaneRepository>()
-            .AddScoped<IGarageRepository, GarageRepository>();
-
-            // Other specific repositories
-            //.AddScoped<IRealmRepository, RealmRepository>()
-            //.AddScoped<IClientRepository, ClientRepository>()
-            //.AddScoped<IClientAllowedScopeRepository, ClientAllowedScopeRepository>()
-            //.AddScoped<IClientAllowedGrantTypeRepository, ClientAllowedGrantTypeRepository>()
-            //.AddScoped<IClientAllowedPkceMethodRepository, ClientAllowedPkceMethodRepository>()
-            //.AddScoped<IClientAllowedLoginFlowRepository, ClientAllowedLoginFlowRepository>()
-            //.AddScoped<IClientConsumerRepository, ClientConsumerRepository>()
-            //.AddScoped<IFeatureFlagsRepository, FeatureFlagsRepository>()
-            //.AddScoped<IClientConfigurationRepository, ClientConfigurationRepository>()
-            //.AddScoped<IClientIdentityConfigurationRepository, ClientIdentityConfigurationRepository>()
-            //.AddScoped<IUserIdentityConfigurationRepository, UserIdentityConfigurationRepository>()
-            //.AddScoped<IPasswordIdentityConfigurationRepository, PasswordIdentityConfigurationRepository>()
-            //.AddScoped<ILockoutIdentityConfigurationRepository, LockoutIdentityConfigurationRepository>()
-            //.AddScoped<IClientEmailConfigurationRepository, ClientEmailConfigurationRepository>()
-            //.AddScoped<IClientTokenConfigurationRepository, ClientTokenConfigurationRepository>()
-            //.AddScoped<ISendGridConfigurationRepository, SendGridConfigurationRepository>()
-            //.AddScoped<IEventRepository, EventRepository>()
-            //.AddScoped<IPlanRepository, PlanRepository>()
-            //.AddScoped<IAccessLogRepository, AccessLogRepository>()
-            //.AddScoped<IPlanRoleRepository, PlanRoleRepository>()
-            //.AddScoped<IRoleRepository, RoleRepository>()
-            //.AddScoped<ISecretRepository, SecretRepository>()
-            //.AddScoped<ISubscriptionRepository, SubscriptionRepository>()
-            //.AddScoped<IFeatureFlagsRepository, FeatureFlagsRepository>()
-            //.AddScoped<ICustomUserStore<UserEntity>, CustomUserStore<UserEntity>>()
-            //.AddScoped<ICustomSignManager<UserEntity>, CustomSignInManager<UserEntity>>()
-            //.AddScoped<ICustomUserManager<UserEntity>, CustomUserManager<UserEntity>>()
-            //.AddScoped<IScopeRepository, ScopeRepository>()
-            //.AddScoped<IGrantTypeRepository, GrantTypeRepository>()
-            //.AddScoped<IPkceMethodRepository, PkceMethodRepository>()
-            //.AddScoped<ILoginFlowRepository, LoginFlowRepository>()
-            //.AddScoped<IUserSystemRepository, UserSystemRepository>()
-            //.AddScoped<IUserRoleRepository, UserRoleRepository>()
-            //.AddScoped<IHybridCacheRepository, HybridCacheRepository>()
-           
-
+            .AddScoped<IGarageRepository, GarageRepository>()
+            .AddScoped<ITrafficRepository, TrafficRepository>()
+            .AddScoped<ITransactionRepository, TransactionRepository>()
+            .AddScoped<IParkedVehicleRepository, ParkedVehicleRepository>()
+            .AddScoped<IPriceTableRepository, PriceTableRepository>();
 
         return services;
     }

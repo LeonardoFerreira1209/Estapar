@@ -51,6 +51,11 @@ public class ParkEntityConfiguration : IEntityTypeConfiguration<ParkEntity>
             .HasForeignKey(l => l.ParkId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        builder.HasOne(p => p.PriceTable)
+            .WithOne(pt => pt.Park)
+            .HasForeignKey<PriceTableEntity>(pt => pt.ParkId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.HasIndex(p => p.Name);
         builder.HasIndex(p => p.Created);
     }

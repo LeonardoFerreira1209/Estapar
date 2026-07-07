@@ -63,11 +63,15 @@ public static class GarageExtensions
     /// </summary>
     /// <param name="entity">The entity to update.</param>
     /// <param name="request">The request containing updated values.</param>
-    public static void UpdateFromRequest(
+    public static GarageEntity UpdateFromRequest(
         this GarageEntity entity,
         UpdateGarageRequest request
         )
     {
-        entity.Update(request.Name);
+        entity.Update(
+            request.Name
+        );
+
+        return entity;
     }
 }

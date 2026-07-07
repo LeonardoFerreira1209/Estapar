@@ -79,16 +79,17 @@ public static class ParkExtensions
     }
 
     /// <summary>
-    /// Updates an existing ParkEntity from an UpdateParkRequest.
+    /// Updates the base data of an existing <see cref="ParkEntity"/> from an <see cref="UpdateParkRequest"/>.
     /// </summary>
     /// <param name="entity">The entity to update.</param>
     /// <param name="request">The request containing updated values.</param>
     public static void UpdateFromRequest(
         this ParkEntity entity,
-        UpdateParkRequest request)
+        UpdateParkRequest request
+        )
     {
         entity.Update(
-            request.Name,
+            request.Name, 
             request.Description
         );
     }

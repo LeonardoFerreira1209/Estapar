@@ -15,6 +15,7 @@ namespace Estapar.Domain.Entities;
 /// <para><strong>Relationships:</strong></para>
 /// <list type="bullet">
 /// <item><description>Many garages belong to one park (many-to-one)</description></item>
+/// <item><description>One garage contains many parked vehicles (one-to-many)</description></item>
 /// </list>
 /// </remarks>
 public class GarageEntity : IEntityBase
@@ -59,12 +60,21 @@ public class GarageEntity : IEntityBase
     public virtual ParkEntity Park { get; private set; } = null!;
 
     /// <summary>
+    /// Gets the collection of vehicles currently parked in this garage.
+    /// </summary>
+    /// <value>
+    /// A collection of <see cref="ParkedVehicleEntity"/> records representing each vehicle
+    /// currently present. This collection is the primary source for occupancy queries.
+    /// </value>
+    public virtual ICollection<ParkedVehicleEntity> ParkedVehicles { get; private set; } = [];
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="GarageEntity"/> class.
     /// </summary>
     /// <remarks>
     /// Private constructor for ORM frameworks.
     /// </remarks>
-    private GarageEntity() { }
+    protected GarageEntity() { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GarageEntity"/> class with specified park identifier and name.

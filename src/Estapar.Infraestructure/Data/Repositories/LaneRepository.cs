@@ -9,10 +9,18 @@ namespace Estapar.Infraestructure.Data.Repositories;
 /// Provides data access operations for <see cref="LaneEntity"/>.
 /// </summary>
 /// <param name="context">The EF Core database context.</param>
-public class LaneRepository(DbContext context)
+public class LaneRepository(EstaparContext context)
     : GenericEntityCoreRepository<LaneEntity>(context), ILaneRepository
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Retrieves all lanes that belong to the specified parking facility.
+    /// </summary>
+    /// <param name="parkId">The unique identifier of the park.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>
+    /// A task representing the asynchronous operation. The result is a list of <see cref="LaneEntity"/>
+    /// records belonging to the specified park.
+    /// </returns>
     public async Task<IList<LaneEntity>> GetByParkIdAsync(
         Guid parkId, 
         CancellationToken cancellationToken = default

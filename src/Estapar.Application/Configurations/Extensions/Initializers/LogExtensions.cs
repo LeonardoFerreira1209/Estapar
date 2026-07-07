@@ -20,8 +20,7 @@ public static class LogExtensions
     /// <param name="services"></param>
     /// <returns></returns>
     public static IServiceCollection ConfigureSerilog(
-        this IServiceCollection services, 
-        IConfiguration configurations
+        this IServiceCollection services
         )
     {
         Log.Logger = new LoggerConfiguration()

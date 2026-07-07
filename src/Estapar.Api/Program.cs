@@ -1,9 +1,7 @@
 using Asp.Versioning;
 using Estapar.Application.Configurations.Extensions.Initializers;
+using Estapar.Application.Hubs;
 using Estapar.Domain.Dtos.Configs;
-using Estapar.Domain.Validators;
-using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using System.Text.Json;
@@ -25,7 +23,7 @@ try
                     .AddEnvironmentVariables();
 
     builder.Services
-        .ConfigureSerilog(configurations)
+        .ConfigureSerilog()
         .AddHttpContextAccessor()
         .AddHttpClient()
         .Configure<AppSettings>(configurations)
@@ -34,7 +32,9 @@ try
         .AddOptions()
         .AddResponseCompression()
         .ConfigureDataBase(configurations)
-        .ConfigureHealthChecks(configurations);
+        .ConfigureHealthChecks(configurations)
+        .ConfigureDependencies(configurations)
+        .AddSignalR();
 
     builder.Services
         .AddApiVersioning(opt =>
@@ -65,9 +65,6 @@ try
             options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         });
 
-    builder.Services.AddFluentValidationAutoValidation();
-    builder.Services.AddValidatorsFromAssemblyContaining<CreateParkRequestValidator>();
-
     builder.Services
         .ConfigureSwagger(configurations);
 
@@ -85,16 +82,17 @@ try
         .UseSwaggerConfigurations(configurations);
 
     applicationbuilder.MapControllers();
+    applicationbuilder.MapHub<LaneHub>("/hubs/lane");
 
     applicationbuilder
        .Lifetime.ApplicationStarted
            .Register(() => Log.Debug(
-                   $"[LOG DEBUG] - Aplicação inicializada com sucesso: [Authio.Api]\n"));
+                   $"[LOG DEBUG] - Aplicação inicializada com sucesso: [Estapar.Api]\n"));
 
     applicationbuilder.ExecuteMigration();
     applicationbuilder.Run();
 }
 catch (Exception exception)
 {
-    Log.Error($"[LOG ERROR] - Ocorreu um erro ao inicializar a aplicacao [Authio.Api] - {exception.Message}\n"); throw;
+    Log.Error($"[LOG ERROR] - Ocorreu um erro ao inicializar a aplicacao [Estapar.Api] - {exception.Message}\n"); throw;
 }
