@@ -5,11 +5,11 @@ using Estapar.Domain.Enums.Traffic;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Serilog;
-using SimuladorEstapar.Clients;
-using SimuladorEstapar.Configuration;
+using SimulatorEstapar.Clients;
+using SimulatorEstapar.Configuration;
 using System.Collections.Concurrent;
 
-namespace SimuladorEstapar.Simulation;
+namespace SimulatorEstapar.Simulation;
 
 /// <summary>
 /// Background service that drives the whole simulation: discovers every park registered in the

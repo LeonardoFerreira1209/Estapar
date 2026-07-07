@@ -5,9 +5,9 @@ using Estapar.Domain.Enums.Lane;
 using Estapar.Domain.Enums.Traffic;
 using Microsoft.AspNetCore.SignalR.Client;
 using Serilog;
-using SimuladorEstapar.Clients;
+using SimulatorEstapar.Clients;
 
-namespace SimuladorEstapar.Simulation;
+namespace SimulatorEstapar.Simulation;
 
 /// <summary>
 /// Owns the SignalR connections used to react to vehicle arrival notifications broadcast by

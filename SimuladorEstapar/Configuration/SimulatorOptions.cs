@@ -1,4 +1,4 @@
-namespace SimuladorEstapar.Configuration;
+namespace SimulatorEstapar.Configuration;
 
 /// <summary>
 /// Configuration options that control how the simulator connects to the main Estapar

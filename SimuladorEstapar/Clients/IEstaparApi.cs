@@ -3,7 +3,7 @@ using Estapar.Domain.Dtos.Response;
 using Estapar.Domain.Dtos.Results;
 using Refit;
 
-namespace SimuladorEstapar.Clients;
+namespace SimulatorEstapar.Clients;
 
 /// <summary>
 /// Refit definition of the main Estapar application's HTTP surface consumed by the simulator:

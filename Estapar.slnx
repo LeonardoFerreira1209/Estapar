@@ -1,6 +1,6 @@
 <Solution>
-  <Folder Name="/Simulador/">
-    <Project Path="SimuladorEstapar/SimuladorEstapar.csproj" Id="3dc71cb7-29af-448a-9089-d6eecc40fecd" />
+  <Folder Name="/Simulator/">
+    <Project Path="SimuladorEstapar/SimulatorEstapar.csproj" Id="3dc71cb7-29af-448a-9089-d6eecc40fecd" />
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Api/">

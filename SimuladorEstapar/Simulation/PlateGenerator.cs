@@ -1,4 +1,4 @@
-namespace SimuladorEstapar.Simulation;
+namespace SimulatorEstapar.Simulation;
 
 /// <summary>
 /// Generates random license plates following the Brazilian Mercosul format (LLLNLNN).

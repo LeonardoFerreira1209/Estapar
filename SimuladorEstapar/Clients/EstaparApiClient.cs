@@ -1,7 +1,7 @@
 using Estapar.Domain.Dtos.Request;
 using Estapar.Domain.Dtos.Response;
 
-namespace SimuladorEstapar.Clients;
+namespace SimulatorEstapar.Clients;
 
 /// <summary>
 /// Friendly facade over the Refit-generated <see cref="IEstaparApi"/> client: unwraps the
